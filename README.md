@@ -68,7 +68,7 @@ https://category.yahboom.net/products/md520?variant=39910808911956
 
 ## Upload Arduino Code
 And lastly, you will have to upload `ROSArduinoBridge.ino` code into your `Arduino Nano`. Please refer to this
-userguide on how to `install` and `test` if Encoder and Motor is working
+userguide on how to `install` and `test` if Encoder and Motor is working. This code is already compiled together in this package.
 ```
 https://github.com/develtechmon/ROS2/blob/main/UserGuide/ros2_control_arduino_setup.md
 ```
