@@ -160,3 +160,13 @@ Once done, then we can run `SLAM` either from RPI or PC and set `use_sim_time:=F
 ```
 ros2 launch bumperbot_bringup slam.launch.py use_sim_time:=False
 ```
+
+## Move and Control Your robot
+
+You can use your `Steam Controller` Joystick or any other Joystick to control the robot. When you launch this script, 
+it automatically recognize our `joystick`. 
+
+However, if you don't have joystick, we can control the robot using keyboard. Please use this command as follow:
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap /cmd_vel:=/diff_cont/cmd_vel_unstamped
+```
