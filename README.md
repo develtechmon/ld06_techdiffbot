@@ -21,7 +21,7 @@ In this project, i'm using following components
 ### Pin Assignments
 
 **Motor Driver**
-You can find and check this information inside `motor_driver.h` which is inside `ROSArduinoBrdige` package
+You can find and check this information inside `motor_driver.h` which is inside `ROSArduinoBridge` package
  Arduino Pin | L298N Pin | Arduino Variable     | 
 | -------- | --------    | --------             |
 | D10      | IN1         | LEFT_MOTOR_FORWARD   |
@@ -30,7 +30,7 @@ You can find and check this information inside `motor_driver.h` which is inside 
 | D5       | IN4         | RIGHT_MOTOR_BACKWARD |
 
 **Left Motor Encoder**
-You can find and check this information inside `encoder_driver.h` which is inside `ROSArduinoBrdige` package
+You can find and check this information inside `encoder_driver.h` which is inside `ROSArduinoBridge` package
  Arduino Pin | Encoder Pin | Encoder Color | Motor Connection         |  Arduino Variable  |
 | -------- | --------      | --------      | --------                 |  --------          |  
 |          | M1 (Motor)    | Red           | Heatsink Left (Bottom)   |                    |
