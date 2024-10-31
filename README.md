@@ -21,6 +21,7 @@ In this project, i'm using following components
 ### Pin Assignments
 
 **Motor Driver**
+You can find and check this information inside `motor_driver.h` which is inside `ROSArduinoBrdige` package
  Arduino Pin | L298N Pin | Arduino Variable     | 
 | -------- | --------    | --------             |
 | D10      | IN1         | LEFT_MOTOR_FORWARD   |
@@ -29,6 +30,7 @@ In this project, i'm using following components
 | D5       | IN4         | RIGHT_MOTOR_BACKWARD |
 
 **Left Motor Encoder**
+You can find and check this information inside `encoder_driver.h` which is inside `ROSArduinoBrdige` package
  Arduino Pin | Encoder Pin | Encoder Color | Motor Connection         |  Arduino Variable  |
 | -------- | --------      | --------      | --------                 |  --------          |  
 |          | M1 (Motor)    | Red           | Heatsink Left (Bottom)   |                    |
@@ -40,6 +42,7 @@ In this project, i'm using following components
 
 
 **Right Motor Encoder**
+You can find and check this information inside `encoder_driver.h` which is inside `ROSArduinoBrdige` package
  Arduino Pin | Encoder Pin | Encoder Color | Motor Connection        | Arduino Variable    |
 | -------- | --------      | --------      | --------                | --------            |
 |          | M1 (Motor)    | Red           | Heatsink Right (Bottom) |                     |
@@ -48,7 +51,6 @@ In this project, i'm using following components
 | A5(Ana)  | C2            | Green         |                         | RIGHT_ENC_PIN_B PC5 |
 | 5V       | VCC(Encoder)  | Blue          |                         |                     |
 |          | M2 (Motor)    | White         | Heatsink Right (Top)    |                     |
-
 
 **Motor Specifications**
  Params    | Value
@@ -62,6 +64,12 @@ This is good website that explain the details parameters of motor we used in thi
 It shows critical parameters such as `CPR`, `PPR`. Please visit this page to understand the details of our motor
 ```
 https://category.yahboom.net/products/md520?variant=39910808911956
+```
+
+And lastly, you will have to upload `ROSArduinoBridge.ino` code into your `Arduino Nano`. Please refer to this
+userguide on how to `install` and `test` if Encoder and Motor is working
+```
+https://github.com/develtechmon/ROS2/blob/main/UserGuide/ros2_control_arduino_setup.md
 ```
 
 ## Part 2 : Package Installation Inside RPI and PC
