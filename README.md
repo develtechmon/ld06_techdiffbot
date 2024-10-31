@@ -21,34 +21,34 @@ In this project, i'm using following components
 ### Pin Assignments
 
 **Motor Driver**
- Arduino Pin | L298N Pin
-| -------- | --------
-| D10      | IN1 |
-| D6       | IN2 |
-| D9       | IN3 |
-| D5       | IN4 |
+ Arduino Pin | L298N Pin | Arduino Variable     | 
+| -------- | --------    | --------             |
+| D10      | IN1 |       | LEFT_MOTOR_FORWARD   |
+| D6       | IN2 |       | LEFT_MOTOR_BACKWARD  |
+| D9       | IN3 |       | RIGHT_MOTOR_FORWARD  | 
+| D5       | IN4 |       | RIGHT_MOTOR_BACKWARD |
 
 
 **Left Motor Encoder**
- Arduino Pin | Encoder Pin | Encoder Color | Motor Connection         |  
-| -------- | --------      | --------      | --------                 |  
-|          | M1 (Motor)    | Red           | Heatsink Left (Bottom)   |
-| GND      | GND           | Black         |                          |
-| D3(Intr) | C1            | Yellow        |                          |
-| D2(Intr) | C2            | Green         |                          |
-| 5V       | VCC(Encoder)  | Blue          |                          |
-|          | M2 (Motor)    | White         | Heatsink Left (Top)      |
+ Arduino Pin | Encoder Pin | Encoder Color | Motor Connection         |  Arduino Variable  |
+| -------- | --------      | --------      | --------                 |  --------          |  
+|          | M1 (Motor)    | Red           | Heatsink Left (Bottom)   |                    |
+| GND      | GND           | Black         |                          |                    |
+| D3(Intr) | C1            | Yellow        |                          | LEFT_ENC_PIN_A PD2 |
+| D2(Intr) | C2            | Green         |                          | LEFT_ENC_PINB PD3  |
+| 5V       | VCC(Encoder)  | Blue          |                          |                    |
+|          | M2 (Motor)    | White         | Heatsink Left (Top)      |                    |
 
 
 **Right Motor Encoder**
- Arduino Pin | Encoder Pin | Encoder Color | Motor Connection        |
-| -------- | --------      | --------      | --------                |
-|          | M1 (Motor)    | Red           | Heatsink Right (Bottom) |
-| GND      | GND           | Black         |                         |
-| A4(Ana)  | C1            | Yellow        |                         |
-| A5(Ana)  | C2            | Green         |                         |
-| 5V       | VCC(Encoder)  | Blue          |                         |
-|          | M2 (Motor)    | White         | Heatsink Right (Top)    |
+ Arduino Pin | Encoder Pin | Encoder Color | Motor Connection        | Arduino Variable    |
+| -------- | --------      | --------      | --------                | --------            |
+|          | M1 (Motor)    | Red           | Heatsink Right (Bottom) |                     |
+| GND      | GND           | Black         |                         |                     |
+| A4(Ana)  | C1            | Yellow        |                         | RIGHT_ENC_PIN_A PC4 |
+| A5(Ana)  | C2            | Green         |                         | RIGHT_ENC_PIN_B PC5 |
+| 5V       | VCC(Encoder)  | Blue          |                         |                     |
+|          | M2 (Motor)    | White         | Heatsink Right (Top)    |                     |
 
 
 **Motor Specifications**
