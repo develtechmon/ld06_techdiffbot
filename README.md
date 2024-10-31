@@ -133,7 +133,13 @@ cd bumperbot_ws/
 
 rosdep install --from-paths src --ignore-src -r -y
 rosdep update && rosdep install --from-path src --ignore-src -y
-colcon buiild
+colcon build
+```
+
+If you're running in `RPi Zero 2W`, you can consider to run build command as follow. To manage
+RAM usage
+```
+colcon build --parallel-workers 2
 ```
 
 ## Launch Our Robot and SLAM !
