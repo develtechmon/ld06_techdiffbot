@@ -23,11 +23,10 @@ In this project, i'm using following components
 **Motor Driver**
  Arduino Pin | L298N Pin | Arduino Variable     | 
 | -------- | --------    | --------             |
-| D10      | IN1 |       | LEFT_MOTOR_FORWARD   |
-| D6       | IN2 |       | LEFT_MOTOR_BACKWARD  |
-| D9       | IN3 |       | RIGHT_MOTOR_FORWARD  | 
-| D5       | IN4 |       | RIGHT_MOTOR_BACKWARD |
-
+| D10      | IN1         | LEFT_MOTOR_FORWARD   |
+| D6       | IN2         | LEFT_MOTOR_BACKWARD  |
+| D9       | IN3         | RIGHT_MOTOR_FORWARD  | 
+| D5       | IN4         | RIGHT_MOTOR_BACKWARD |
 
 **Left Motor Encoder**
  Arduino Pin | Encoder Pin | Encoder Color | Motor Connection         |  Arduino Variable  |
