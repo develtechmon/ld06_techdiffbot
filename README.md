@@ -68,7 +68,7 @@ This is my components for this tutorial
 * RPI 4 4GB
 * HDMI and Keyboard
   
-For, `RPI` i'm using the following image which is selected from RPI image and flash the SD Card using this same tool
+For, `RPI` i'm using the following image which is selected from RPI imager and flash the SD Card using this same tool
 ```
 Ubuntu 64-bit
 Ubuntu 22.04.5 LTS
