@@ -66,6 +66,7 @@ It shows critical parameters such as `CPR`, `PPR`. Please visit this page to und
 https://category.yahboom.net/products/md520?variant=39910808911956
 ```
 
+## Upload Arduino Code
 And lastly, you will have to upload `ROSArduinoBridge.ino` code into your `Arduino Nano`. Please refer to this
 userguide on how to `install` and `test` if Encoder and Motor is working
 ```
