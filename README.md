@@ -59,6 +59,11 @@ In this project, i'm using following components
 | CPR      | 11x4x30 = 1320 |
 | PPR      | 11 x4 = 44     |
 
+Thisi is good website that explain the details parameters of motor we used in this project. 
+It shows critical parameters such as `CPR`, `PPR`. Please visit this page to understand the details of our motor
+```
+https://category.yahboom.net/products/md520?variant=39910808911956
+```
 
 ## Part 2 : Package Installation Inside RPI and PC
 
