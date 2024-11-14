@@ -127,9 +127,12 @@ https://github.com/develtechmon/ROS2/blob/main/UserGuide/Steam_Controller_Joysti
 
 Now let's start building and compiler our robot. Open new terminal in PC or SSH to RPI and please do the following:
 ```
-https://github.com/develtechmon/slamtec_c1_techdiffbot.git
-cd slamtec_c1_techdiffbot/
+git clone https://github.com/develtechmon/ld06_techdiffbot.git
+cd ld06_techdiffbot/
 cd bumperbot_ws/
+
+sudo rosdep init
+rosdep update
 
 rosdep install --from-paths src --ignore-src -r -y
 rosdep update && rosdep install --from-path src --ignore-src -y
@@ -147,7 +150,7 @@ colcon build --parallel-workers 2
 ## Simulation 
 In your RPI, please go to  following command
 ```
-cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+cd ~/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws
 ```
 
 Run this command to launch our REAL robot in RPI
@@ -163,7 +166,7 @@ ros2 launch bumperbot_bringup slam.launch.py use_sim_time:=True
 ## Real Robot 
 In your RPI, please go to  following command
 ```
-cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+cd ~/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws
 ```
 
 Run this command to launch our REAL robot in RPI
