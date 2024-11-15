@@ -72,7 +72,7 @@ def generate_launch_description():
 
     return LaunchDescription([    
     hardware_interface,
-    fake_odom,
+    #fake_odom, 
     laser_driver,
     twist_mux,
     diff_drive_spawner,
