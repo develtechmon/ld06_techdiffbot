@@ -16,11 +16,11 @@ slam_toolbox:
     scan_topic: /scan
     use_map_saver: true
     
-    mode: mapping 
-    #mode: localization
+    #mode: mapping 
+    mode: localization
 
-    #map_file_name: /home/jlukas/Desktop/My_Project/joshnewans/bumperbot_ws/new_map_serialize
-    #map_start_at_dock: true
+    map_file_name: /home/jlukas/My_Project/ld06_techdiffbot/bumperbot_ws/serialize_house_map
+    map_start_at_dock: true
 
     # if you'd like to immediately start continuing a map at a given pose
     # or at the dock, but they are mutually exclusive, if pose is given
