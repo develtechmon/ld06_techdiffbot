@@ -16,7 +16,7 @@ slam_toolbox:
     scan_topic: /scan
     use_map_saver: true
     
-    #mode: mapping 
+    mode: mapping 
     #mode: localization
 
     #map_file_name: /home/jlukas/Desktop/My_Project/joshnewans/bumperbot_ws/new_map_serialize
