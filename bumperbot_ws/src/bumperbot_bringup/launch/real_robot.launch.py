@@ -72,7 +72,7 @@ def generate_launch_description():
 
     imu_driver_node = Node(
         package=package_name,
-        executable="mpu6050_driver.py"
+        executable="mpu6050_driver"
     )
 
     local_imu = IncludeLaunchDescription(
