@@ -17,7 +17,7 @@ setup(
         (os.path.join('share', package_name, 'rviz2'), glob('rviz2/*')),
         (os.path.join('share', package_name, 'urdf'),  glob('urdf/*')),
         (os.path.join('share', package_name, 'world'), glob('world/*')),
-
+        (os.path.join('share', package_name, 'map'), glob('map/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -28,6 +28,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'mpu6050_driver = bumperbot_bringup.mpu6050_driver:main',
         ],
     },
 )

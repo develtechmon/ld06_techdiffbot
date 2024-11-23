@@ -70,6 +70,17 @@ def generate_launch_description():
             )])
     )
 
+    imu_driver_node = Node(
+        package=package_name,
+        executable="mpu6050_driver.py"
+    )
+
+    local_imu = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(package_name),'launch','local_localization.launch.py'
+            )]), launch_arguments={'use_sim_time': 'false'}.items()
+    )
+
     return LaunchDescription([    
     hardware_interface,
     #fake_odom, 
@@ -78,4 +89,6 @@ def generate_launch_description():
     diff_drive_spawner,
     joint_broad_spawner,
     joystick,
+    imu_driver_node,
+    local_imu,
     ])

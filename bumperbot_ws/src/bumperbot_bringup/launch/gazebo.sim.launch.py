@@ -59,6 +59,12 @@ def generate_launch_description():
             parameters=[twist_mux_params, {'use_sim_time': True}],
             remappings=[('/cmd_vel_out','/diff_cont/cmd_vel_unstamped')]
         )
+    
+    local_imu = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(package_name),'launch','local_localization.launch.py'
+            )]), launch_arguments={'use_sim_time': 'true'}.items()
+    )   
 
     return LaunchDescription([    
 
@@ -69,10 +75,7 @@ def generate_launch_description():
         diff_drive_spawner,
         joint_broad_spawner,
         joystick,
+        local_imu,
         #rviz,
-
-        # DeclareLaunchArgument(
-        #     'use_sim_time',
-        #     default_value='false',
-        #     description='Use sim time if true'),
-    ])
+    ])    
+        

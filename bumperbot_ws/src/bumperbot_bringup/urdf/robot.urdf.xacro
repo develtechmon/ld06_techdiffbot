@@ -6,7 +6,6 @@
   <xacro:arg name="is_sim" default="true"/>
 
   <xacro:include filename="rover.xacro"/>
-  <!-- <xacro:include filename="gazebo_control_differential_drive.xacro" /> -->
   <xacro:include filename="bumperbot_gazebo.xacro" />
   <xacro:include filename="ros2_control.xacro" />
 
