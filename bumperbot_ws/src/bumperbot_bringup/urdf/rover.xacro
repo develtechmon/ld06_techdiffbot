@@ -80,7 +80,7 @@
     <link name="left_wheel_link">
         <visual>
             <geometry>
-                <cylinder radius="0.03405" length="0.027"/>
+                <cylinder radius="0.033" length="0.027"/>
                 <!-- <cylinder radius="0.03405" length="0.01"/> -->
             </geometry>
             <material name="white"/>
@@ -88,11 +88,11 @@
 
         <collision>
             <geometry>
-                <cylinder radius="0.03405" length="0.027"/>
+                <cylinder radius="0.033" length="0.027"/>
                 <!-- <sphere radius="0.0325"/> -->
             </geometry>
         </collision>
-        <xacro:inertial_cylinder mass="0.05" length="0.027" radius="0.03405">
+        <xacro:inertial_cylinder mass="0.05" length="0.027" radius="0.033">
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
         </xacro:inertial_cylinder>
     </link>
@@ -113,7 +113,7 @@
     <link name="right_wheel_link">
     <visual>
         <geometry>
-            <cylinder radius="0.03405" length="0.027"/>
+            <cylinder radius="0.033" length="0.027"/>
             <!-- <cylinder radius="0.03405" length="0.01"/> -->
         </geometry>
         <material name="white"/>
@@ -121,11 +121,11 @@
 
     <collision>
         <geometry>
-            <cylinder radius="0.03405" length="0.027"/>
+            <cylinder radius="0.033" length="0.027"/>
             <!-- <sphere radius="0.0325"/> -->
         </geometry>
     </collision>
-    <xacro:inertial_cylinder mass="0.05" length="0.027" radius="0.03405">
+    <xacro:inertial_cylinder mass="0.05" length="0.027" radius="0.033">
         <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </xacro:inertial_cylinder>
     </link>
