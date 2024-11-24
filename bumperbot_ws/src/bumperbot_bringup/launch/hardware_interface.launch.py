@@ -9,7 +9,8 @@ from ament_index_python.packages import get_package_share_directory
 def generate_launch_description():
     package_name = "bumperbot_bringup"
 
-    controller_params_file = os.path.join(get_package_share_directory(package_name),'config','bumperbot_bringup.yaml')
+    #controller_params_file = os.path.join(get_package_share_directory(package_name),'config','bumperbot_bringup.yaml')
+    controller_params_file = os.path.join(get_package_share_directory(package_name),'config','bumperbot_controllers.yaml')
 
     robot_description = ParameterValue(
         Command(
