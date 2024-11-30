@@ -486,14 +486,18 @@ coming from `/ekf_filter_node`.
 
 We will use this `/odometry/filtered` in `SLAM` and `NAV` as new source of odometry. However, in latest update, i've remap this topic to `/odom` for the sake of generalization.
 
-Expected output will be as follow, and use this command to see all the listed topic
-```
-rqt 
-```
-
-or run this command to view all the `TF2` tree
+Run this command to view all the `TF2` tree
 ```
 ros2 run tf2_tools view_frames
+```
+
+This is the TF tree for this robot
+![Screenshot from 2024-11-30 08-37-54](https://github.com/user-attachments/assets/87cad804-6c94-4aa8-9fda-b312cc300f1c)
+
+
+To view the topics and node, output will be as follow, and use this command to see all the listed topic
+```
+rqt 
 ```
 
 and you will see result of rqt graph as follow. Here, you can see `1 - /diff_cont/odom`, `2 - /imut/out` are fused and generate an output `3 - /odom` output coming
