@@ -29,6 +29,7 @@ def generate_launch_description():
         #parameters=[os.path.join(get_package_share_directory(package_name), "config", "ekf.yaml")],
         parameters=[os.path.join(get_package_share_directory(package_name), "config", "ekf.yaml"),
                    {"use_sim_time": LaunchConfiguration("use_sim_time")}],
+        remappings=[("/odometry/filtered", "odom")],
 
     )
 

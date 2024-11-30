@@ -75,6 +75,13 @@ def generate_launch_description():
         executable="mpu6050_driver"
     )
 
+    mpu6050_driver_node = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory('ros2_mpu6050'),'launch','ros2_mpu6050.launch.py'
+            )])
+    )
+
+
     local_imu = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory(package_name),'launch','local_localization.launch.py'
@@ -89,6 +96,7 @@ def generate_launch_description():
     diff_drive_spawner,
     joint_broad_spawner,
     joystick,
-    imu_driver_node,
+    #imu_driver_node,
+    mpu6050_driver_node,
     local_imu,
     ])
