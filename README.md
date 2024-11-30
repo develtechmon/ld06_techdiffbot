@@ -145,6 +145,42 @@ RAM usage
 colcon build --parallel-workers 2
 ```
 
+## Install IMU Package 
+
+This is connection IMU to Raspberry Pi
+
+**MPU6050*
+ Sensor    | Rpi Pin
+| -------- | --------
+| Vcc      | VCC   |
+| Gnd      | GND   |
+| SCL      | SCL   |
+| SDA      | SDA   |
+
+
+This is additional userguide on how to install `MPU6050` in this robot. In your RPI or PC, please install this package first
+```
+sudo apt-get install python3-smbus
+sudo apt install libi2c-dev
+pip3 install smbus
+```
+When you run this command,
+```
+sudo i2cdetect -y 1
+```
+you will see your `I2C` address is detected as follow. This show our MPU6050 is recognized by `RaspberryPi`
+```
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- 68 -- -- -- -- -- -- -- 
+70: -- -- -- -- -- -- -- --   
+```
+
 ## Launch Our Robot and SLAM !
 
 ## Simulation 
