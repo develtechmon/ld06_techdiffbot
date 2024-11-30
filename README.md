@@ -181,6 +181,92 @@ you will see your `I2C` address is detected as follow. This show our MPU6050 is 
 70: -- -- -- -- -- -- -- --   
 ```
 
+Next, we're going to install `MPU6050 driver` package for `ROS2`. Please follow below step carefully:
+```
+cd ~
+mkdir -p mpu6050_driver/src
+cd mpu6050_driver/src
+
+git clone https://github.com/kimsniper/ros2_mpu6050.git
+```
+
+Then we need to modify the following parameter to match with our `robot urdf` and `imu topic`.
+```
+cd ros2_mpu6050/src
+vi mpu6050_node.cpp
+```
+
+and modify the following parameters inside this file
+```
+publisher_ = this->create_publisher<sensor_msgs::msg::Imu>("imu/out", 10); <--- Change into /imu/out
+message.header.frame_id = "imu_link"; <--- Change into imu_link to match our urdf
+```
+
+Then let's build our package. Please refer to `mpu6050 userguide`.
+```
+cd mpu6050_driver
+colcon build --packages-select ros2_mpu6050
+. install/setup.bash
+```
+You may need to add this `setup.bash` file to add `.basrhrc` script.
+
+Then next, you will have to calibrate the `mpu6050` sensor first before use. Please do the following
+```
+ros2 run ros2_mpu6050 ros2_mpu6050_calibrate
+```
+and this offsets should be displayed
+```
+I2c communication started. .
+MPU6050 initialization successful
+
+**** Starting calibration ****
+Ensure that the mpu6050 board is positioned in a surface perpendicular to the direction gravitational accelleration
+This may take a while depending upon the no of samples, please wait. . .
+
+
+In the params.yaml file under config directory, copy the following results accordingly
+
+Gyroscope Offsets: 
+gyro_x_offset --> -1.44153
+gyro_y_offset --> 0.596412
+gyro_z_offset --> 0.618626
+
+Accelerometer Offsets: 
+accel_x_offset --> 10.601
+accel_y_offset --> -0.424632
+accel_z_offset --> -3.21498
+```
+
+Copy these values in the params.yaml file under config directory of the package replacing the 0 values
+
+```
+# [deg/s]
+gyro_x_offset: 0.0
+gyro_y_offset: 0.0
+gyro_z_offset: 0.0
+# [m/s²]
+accel_x_offset: 0.0
+accel_y_offset: 0.0
+accel_z_offset: 0.0
+```
+
+Then you have to build the package again
+```
+colcon build --packages-select ros2_mpu6050
+```
+
+and execute the following command to run our `mpu6050`
+```
+ros2 launch ros2_mpu6050 ros2_mpu6050.launch.py
+```
+
+This launch will publish the node as follow
+```
+ros2 topic echo /imu/out
+```
+
+Under `real_robot` launch file, this node had been already integrated to work with our robot. Please refer to it.
+
 ## Launch Our Robot and SLAM !
 
 ## Simulation 
