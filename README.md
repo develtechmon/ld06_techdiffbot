@@ -310,3 +310,341 @@ However, if you don't have joystick, we can control the robot using keyboard. Pl
 ```
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap /cmd_vel:=/diff_cont/cmd_vel_unstamped
 ```
+
+
+## Launch our Robot and Nav2 !
+
+## Simulation
+In your PC, please go to  following command
+```
+cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+```
+
+We need to enable this setting to start `localization` as follow
+```
+vi src/bumperbot_bringup/config/mapper_params_online_async.yaml 
+```
+
+Then enable this file as follow:
+```
+# ROS Parameters
+   odom_frame: odom
+   map_frame: map
+   base_frame: base_footprint
+   scan_topic: /scan
+   use_map_saver: true
+   
+   mode: localization <--------- Enable this
+   map_file_name: /home/jlukas/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws/src/bumperbot_bringup/map/serialize_map_v1 <--------- Set this path to our saved map
+   map_start_at_dock: true <--------- Enable this
+```
+Run this command to launch our `SIMULATION` robot in PC
+```
+ros2 launch bumperbot_bringup gazebo.sim.launch.py world:=src/bumperbot_bringup/world/map_v1
+```
+
+Once done, then we can run `SLAM` either from PC and set `use_sim_time:=True`
+```
+ros2 launch bumperbot_bringup slam.launch.py use_sim_time:=True
+```
+
+Launch our `NAV2`
+```
+ros2 launch bumperbot_bringup navigation_launch.py use_sim_time:=true
+```
+
+Launch `rviz`
+```
+rviz2 -d src/bumperbot_bringup/rviz2/slam_rviz.rviz
+```
+
+and select the `rviz` configuration as follow
+```
+Fixed Frame - map
+Map Topic - Global../Costmap
+Color Scheme - Costmap
+Path - Topic - /plan
+```
+
+From `rviz`
+```
+Select 2D Goal Pose and start navigating
+```
+
+## Launch our Robot using AMCL and Nav2 !
+
+This is the modifications i made that combine both `localization` and `navigation` launch file.
+
+## Simulation
+In your PC, please go to  following command
+```
+cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+```
+
+Launch our `AMCL` and `NAV2`
+```
+ros2 launch bumperbot_bringup autonomous_nav_sim.launch.py use_sim_time:=True world:=src/bumperbot_bringup/world/map_v1 
+```
+
+Launch `rviz`
+```
+rviz2 
+```
+
+and select the `rviz` configuration as follow
+```
+Fixed Frame - map
+Map Topic - Global../Costmap
+Color Scheme - Costmap
+Durability Policy - Transient Local
+Path - Topic - /plan
+```
+
+From `rviz`
+```
+select 2D Pose Estimate and select your initial position and please ensure it align with robot orientation.
+This will generate a Global Costmap view
+```
+
+And from `rviz`
+```
+Select 2D Goal Pose and start navigating
+```
+
+And from `rviz` click `+` sign and add `GoalTool` from `nav2_rviz_plugins`
+```
+You can now use Nav2 Goal to move the robot
+```
+
+
+## Additional Notes
+
+To display plot graph of `imu data`. You can run following command. Select topic and drag the parameter to graph view
+```
+ros2 run plotjuggler plotjuggler 
+```
+
+Moreover, you can use `rviz` to view the data of `imu`. Please ensure to install following packages first if you havent
+```
+sudo apt install ros-$ROS_DISTRO-plotjuggler-ros
+sudo apt-get install ros-humble-rviz-imu-plugin
+```
+
+## Fusing IMU and Odometry using Kalman Filter and Create a new Filtered Odom as a new source of odometry
+
+In this step, i'm going to show how to fuse `/imu/out` and `/diff_cont/odom` topic and create a new `/odometry/filtered` topic which is
+coming from `/ekf_filter_node`.
+
+We will use this `/odometry/filtered` in `SLAM` and `NAV` as new source of odometry.
+
+Expected output will be as follow, and use this command to see all the listed topic
+```
+rqt 
+```
+
+and you will see result of rqt graph as follow. Here, you can see `1 - /diff_cont/odom`, `2 - /imut/out` are fused and generate an output `3 - /odometry/filtered` output coming
+from `/ekf_filter_node`.
+
+![image](https://github.com/user-attachments/assets/2ee5ab64-5daa-471f-a38f-041da23d98c6)
+
+To enable the fuse, we have modify the following parameters in this file
+
+* Edit `bumperbot_controllers.yaml` and make changes follow
+```
+enable_odom_tf: false
+```
+
+* Edit `gazebo.sim.launch.py` and enable this `launcher`
+```
+safety_stop
+local_imu <----- This one
+```
+
+* Edit `bumperbot_gazebo.xacro` to point to our new controllers
+```
+<gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+        <!-- <parameters>$(find bumperbot_bringup)/config/bumperbot_bringup.yaml</parameters> -->
+        <parameters>$(find bumperbot_bringup)/config/bumperbot_controllers.yaml</parameters> <----- This one
+    </plugin>
+</gazebo>
+```
+* Edit `ekf.yaml` and add/edit the following parameters. I highly suggest to refer to this `userguide` if you want
+to know what does this file mean and how to create a new `filtered_odom`.
+
+```
+https://docs.nav2.org/setup_guides/odom/setup_odom.html#
+```
+
+Edit the following file and refer to above link to understand.
+
+The order of the values of this parameter is `x, y, z, roll, pitch, yaw, vx, vy, vz, vroll, vpitch, vyaw, ax, ay, az`.
+
+In our project, we set everything in odom0_config to false except the 1st, 2nd, 3rd, and 12th entries, which means
+the filter will only use the x, y, z, and the vyaw values of odom0.
+
+In the imu0_config matrix, you’ll notice that only roll, pitch, and yaw are used. 
+```
+two_d_mode: false
+publish_tf: true
+base_link_frame: base_footprint <-- Please ensure this match to our URDF and local_localization.launch.py
+
+ # IMU Configuration
+imu0: imu/out
+imu0_config: [false, false, false,
+            true,  true,  true,
+            false, false, false,
+            false, false, false,
+            false, false, false]
+
+# ODOM Configuration
+odom0: diff_cont/odom
+odom0_config: [true,  true,  true,
+                false, false, false,
+                false, false, false,
+                false, false, true,
+                false, false, false]
+```
+
+* Edit `nav2_params.yaml` and edit the following
+```
+bt_navigator:
+  ros__parameters:
+    use_sim_time: True
+    global_frame: map
+    robot_base_frame: base_link
+    odom_topic: /odometry/filtered # <----- Change this, default: /odom
+    bt_loop_duration: 10
+    default_server_timeout: 20
+```
+## Launch Our Robot and SLAM using Fused Odometry !
+
+## Simulation 
+In your PC, please go to  following command
+```
+cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+```
+We need to enable this setting to start `mapping` as follow
+```
+vi src/bumperbot_bringup/config/mapper_params_online_async.yaml 
+```
+Then enable this file as follow:
+```
+# ROS Parameters
+   odom_frame: odom
+   map_frame: map
+   base_frame: base_footprint
+   scan_topic: /scan
+   use_map_saver: true
+   
+   mode: mapping <----------- Enable this
+```
+Run this command to launch our `SIMULATION` robot in PC
+```
+ros2 launch bumperbot_bringup gazebo.sim.launch.py  use_sim_time:=True world:=src/bumperbot_bringup/world/my_imu_map 
+```
+
+Once done, then we can run `SLAM` either from PC and set `use_sim_time:=True`
+```
+ros2 launch bumperbot_bringup slam.launch.py use_sim_time:=True
+```
+
+Launch `rviz`
+```
+rviz2 -d src/bumperbot_bringup/rviz2/imu_rviz.rviz
+```
+
+Once done with mapping, return to its original position and please save the map and our Gazebo world
+
+## Real Robot 
+In your RPI, please go to  following command
+```
+cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+```
+
+Run this command to launch our REAL robot in RPI
+```
+ros2 launch bumperbot_bringup real_robot.launch.py 
+```
+
+Once done, then we can run `SLAM` either from RPI or PC and set `use_sim_time:=False`
+```
+ros2 launch bumperbot_bringup slam.launch.py use_sim_time:=False
+```
+
+Launch `rviz`
+```
+rviz2 -d src/bumperbot_bringup/rviz2/imu_rviz.rviz
+```
+
+Once done with mapping, return to its original position and please save the map and our real world.
+
+## Move and Control Your robot
+
+You can use your `Steam Controller` Joystick or any other Joystick to control the robot. When you launch this script, 
+it automatically recognize our `joystick`. 
+
+However, if you don't have joystick, we can control the robot using keyboard. Please use this command as follow:
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap /cmd_vel:=/diff_cont/cmd_vel_unstamped
+```
+
+## Launch our Robot and Nav2 using Fused Odometry !
+
+## Simulation
+In your PC, please go to  following command
+```
+cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+```
+
+We need to enable this setting to start `localization` as follow
+```
+vi src/bumperbot_bringup/config/mapper_params_online_async.yaml 
+```
+
+Then enable this file as follow:
+```
+# ROS Parameters
+   odom_frame: odom
+   map_frame: map
+   base_frame: base_footprint
+   scan_topic: /scan
+   use_map_saver: true
+   
+   mode: localization <--------- Enable this
+   map_file_name: /home/jlukas/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws/src/bumperbot_bringup/map/serialize_imu_map
+   map_start_at_dock: true <--------- Enable this
+```
+Run this command to launch our `SIMULATION` robot in PC
+```
+ros2 launch bumperbot_bringup gazebo.sim.launch.py world:=src/bumperbot_bringup/world/my_imu_map
+```
+
+Once done, then we can run `SLAM` either from PC and set `use_sim_time:=True`
+```
+ros2 launch bumperbot_bringup slam.launch.py use_sim_time:=True
+```
+
+Launch our `NAV2`
+```
+ros2 launch bumperbot_bringup navigation_launch.py use_sim_time:=true
+```
+
+Launch `rviz`
+```
+rviz2 -d src/bumperbot_bringup/rviz2/imu_rviz.rviz
+```
+
+and select the `rviz` configuration as follow
+```
+Fixed Frame - map
+Map Topic - Global../Costmap
+Color Scheme - Costmap
+Path - Topic - /plan
+```
+
+From `rviz`
+```
+Select 2D Goal Pose and start navigating or click + to add Nav2 Goal
+```
+
