@@ -371,7 +371,49 @@ From `rviz`
 Select 2D Goal Pose and start navigating
 ```
 
+## Real Robot 
+In your RPI, please go to  following command
+```
+cd ~/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws
+```
 
+Run this command to launch our REAL robot in RPI
+```
+ros2 launch bumperbot_bringup real_robot.launch.py use_sim_time:=False
+```
+
+Once done, then we can run `SLAM` either from RPI or PC and set `use_sim_time:=False`
+```
+ros2 launch bumperbot_bringup slam.launch.py use_sim_time:=False
+```
+
+And in new terminal we can run our `Nav2`
+```
+ros2 launch bumperbot_bringup navigation_launch.py use_sim_time:=False
+```
+
+If you `raspberry` is limited by computing power. You can run this `navigation` command in your laptops also as follow
+```
+ros2 launch nav2_bringup navigation_launch.py use_sim_time:=True
+```
+
+Launch `rviz`
+```
+rviz2 -d src/bumperbot_bringup/rviz2/imu_rviz.rviz
+```
+
+and select the `rviz` configuration as follow
+```
+Fixed Frame - map
+Map Topic - Global../Costmap
+Color Scheme - Costmap
+Path - Topic - /plan
+```
+
+From `rviz`
+```
+Select 2D Goal Pose and start navigating
+```
 
 
 ## Launch our Robot using AMCL and Nav2 !
@@ -676,4 +718,17 @@ Launch `rviz`
 ```
 rviz2 -d src/bumperbot_bringup/rviz2/imu_rviz.rviz
 ```
+or select the following 
 
+and select the `rviz` configuration as follow
+```
+Fixed Frame - map
+Map Topic - Global../Costmap
+Color Scheme - Costmap
+Path - Topic - /plan
+```
+
+From `rviz`
+```
+Select 2D Goal Pose and start navigating
+```
