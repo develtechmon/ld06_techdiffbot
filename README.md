@@ -492,31 +492,22 @@ base_link_frame: base_footprint <-- Please ensure this match to our URDF and loc
  # IMU Configuration
 imu0: imu/out
 imu0_config: [false, false, false,
-            true,  true,  true,
+            false, false,  true,
             false, false, false,
-            false, false, false,
-            false, false, false]
+            false, false, true,
+            true, false, false]
+imu0_differential: false
 
 # ODOM Configuration
 odom0: diff_cont/odom
-odom0_config: [true,  true,  true,
-                false, false, false,
-                false, false, false,
+odom0_config: [false,  false,  false,
+                false, false, true,
+                true, false, false,
                 false, false, true,
                 false, false, false]
+odom0_differential: false
 ```
 
-* Edit `nav2_params.yaml` and edit the following
-```
-bt_navigator:
-  ros__parameters:
-    use_sim_time: True
-    global_frame: map
-    robot_base_frame: base_link
-    odom_topic: /odometry/filtered # <----- Change this, default: /odom
-    bt_loop_duration: 10
-    default_server_timeout: 20
-```
 ## Launch Our Robot and SLAM using Fused Odometry !
 
 ## Simulation 
