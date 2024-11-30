@@ -358,6 +358,8 @@ Launch `rviz`
 rviz2 -d src/bumperbot_bringup/rviz2/slam_rviz.rviz
 ```
 
+or do the following 
+
 and select the `rviz` configuration as follow
 ```
 Fixed Frame - map
@@ -401,6 +403,8 @@ Launch `rviz`
 ```
 rviz2 -d src/bumperbot_bringup/rviz2/imu_rviz.rviz
 ```
+
+or do the following 
 
 and select the `rviz` configuration as follow
 ```
