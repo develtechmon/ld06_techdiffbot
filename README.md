@@ -371,6 +371,9 @@ From `rviz`
 Select 2D Goal Pose and start navigating
 ```
 
+
+
+
 ## Launch our Robot using AMCL and Nav2 !
 
 This is the modifications i made that combine both `localization` and `navigation` launch file.
@@ -435,14 +438,14 @@ sudo apt-get install ros-humble-rviz-imu-plugin
 In this step, i'm going to show how to fuse `/imu/out` and `/diff_cont/odom` topic and create a new `/odometry/filtered` topic which is
 coming from `/ekf_filter_node`.
 
-We will use this `/odometry/filtered` in `SLAM` and `NAV` as new source of odometry.
+We will use this `/odometry/filtered` in `SLAM` and `NAV` as new source of odometry. However, in latest update, i've remap this topic to `/odom` for the sake of generalization.
 
 Expected output will be as follow, and use this command to see all the listed topic
 ```
 rqt 
 ```
 
-and you will see result of rqt graph as follow. Here, you can see `1 - /diff_cont/odom`, `2 - /imut/out` are fused and generate an output `3 - /odometry/filtered` output coming
+and you will see result of rqt graph as follow. Here, you can see `1 - /diff_cont/odom`, `2 - /imut/out` are fused and generate an output `3 - /odom` output coming
 from `/ekf_filter_node`.
 
 ![image](https://github.com/user-attachments/assets/2ee5ab64-5daa-471f-a38f-041da23d98c6)
@@ -555,7 +558,7 @@ cd ~/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws
 
 Run this command to launch our REAL robot in RPI
 ```
-ros2 launch bumperbot_bringup real_robot.launch.py 
+ros2 launch bumperbot_bringup real_robot.launch.py use_sim_time:=False
 ```
 
 Once done, then we can run `SLAM` either from RPI or PC and set `use_sim_time:=False`
@@ -621,6 +624,11 @@ Launch our `NAV2`
 ros2 launch bumperbot_bringup navigation_launch.py use_sim_time:=true
 ```
 
+If you `raspberry` is limited by computing power. You can run this `navigation` command in your laptops also as follow
+```
+ros2 launch nav2_bringup navigation_launch.py use_sim_time:=True
+```
+
 Launch `rviz`
 ```
 rviz2 -d src/bumperbot_bringup/rviz2/imu_rviz.rviz
@@ -637,5 +645,35 @@ Path - Topic - /plan
 From `rviz`
 ```
 Select 2D Goal Pose and start navigating or click + to add Nav2 Goal
+```
+## Real Robot 
+In your RPI, please go to  following command
+```
+cd ~/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws
+```
+
+Run this command to launch our REAL robot in RPI
+```
+ros2 launch bumperbot_bringup real_robot.launch.py use_sim_time:=False
+```
+
+Once done, then we can run `SLAM` either from RPI or PC and set `use_sim_time:=False`
+```
+ros2 launch bumperbot_bringup slam.launch.py use_sim_time:=False
+```
+
+And in new terminal we can run our `Nav2`
+```
+ros2 launch bumperbot_bringup navigation_launch.py use_sim_time:=False
+```
+
+If you `raspberry` is limited by computing power. You can run this `navigation` command in your laptops also as follow
+```
+ros2 launch nav2_bringup navigation_launch.py use_sim_time:=True
+```
+
+Launch `rviz`
+```
+rviz2 -d src/bumperbot_bringup/rviz2/imu_rviz.rviz
 ```
 
