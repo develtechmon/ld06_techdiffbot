@@ -491,6 +491,11 @@ Expected output will be as follow, and use this command to see all the listed to
 rqt 
 ```
 
+or run this command to view all the `TF2` tree
+```
+ros2 run tf2_tools view_frames
+```
+
 and you will see result of rqt graph as follow. Here, you can see `1 - /diff_cont/odom`, `2 - /imut/out` are fused and generate an output `3 - /odom` output coming
 from `/ekf_filter_node`.
 
