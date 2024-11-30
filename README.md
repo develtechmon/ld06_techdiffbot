@@ -11,7 +11,7 @@ This is userguide on how to start  this robot build. This section will cover the
 ## Part 1 : Schematic Pin and Components
 
 In this project, i'm using following components
-* Slamtec C1 Lidar x 1
+* Ld09 Lidar x 1
 * RPi 4B 4GB x 1
 * 2 Encoder Motor 333 RPM, 1:30 Gear x 2
 * Arduino Nano x 1
@@ -317,7 +317,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap /cmd_vel
 ## Simulation
 In your PC, please go to  following command
 ```
-cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+cd ~/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws
 ```
 
 We need to enable this setting to start `localization` as follow
@@ -335,7 +335,7 @@ Then enable this file as follow:
    use_map_saver: true
    
    mode: localization <--------- Enable this
-   map_file_name: /home/jlukas/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws/src/bumperbot_bringup/map/serialize_map_v1 <--------- Set this path to our saved map
+   map_file_name: /home/jlukas/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws/src/bumperbot_bringup/map/serialize_map_v1 <--------- Set this path to our saved map
    map_start_at_dock: true <--------- Enable this
 ```
 Run this command to launch our `SIMULATION` robot in PC
@@ -378,7 +378,7 @@ This is the modifications i made that combine both `localization` and `navigatio
 ## Simulation
 In your PC, please go to  following command
 ```
-cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+cd ~/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws
 ```
 
 Launch our `AMCL` and `NAV2`
@@ -522,7 +522,7 @@ bt_navigator:
 ## Simulation 
 In your PC, please go to  following command
 ```
-cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+cd ~/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws
 ```
 We need to enable this setting to start `mapping` as follow
 ```
@@ -559,7 +559,7 @@ Once done with mapping, return to its original position and please save the map 
 ## Real Robot 
 In your RPI, please go to  following command
 ```
-cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+cd ~/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws
 ```
 
 Run this command to launch our REAL robot in RPI
@@ -594,7 +594,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap /cmd_vel
 ## Simulation
 In your PC, please go to  following command
 ```
-cd ~/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws
+cd ~/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws
 ```
 
 We need to enable this setting to start `localization` as follow
@@ -612,7 +612,7 @@ Then enable this file as follow:
    use_map_saver: true
    
    mode: localization <--------- Enable this
-   map_file_name: /home/jlukas/Desktop/My_Project/slamtec_c1_techdiffbot/bumperbot_ws/src/bumperbot_bringup/map/serialize_imu_map
+   map_file_name: /home/jlukas/Desktop/My_Project/ld06_techdiffbot/bumperbot_ws/src/bumperbot_bringup/map/serialize_imu_map
    map_start_at_dock: true <--------- Enable this
 ```
 Run this command to launch our `SIMULATION` robot in PC
