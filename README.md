@@ -543,10 +543,6 @@ Edit the following file and refer to above link to understand.
 
 The order of the values of this parameter is `x, y, z, roll, pitch, yaw, vx, vy, vz, vroll, vpitch, vyaw, ax, ay, az`.
 
-In our project, we set everything in odom0_config to false except the 1st, 2nd, 3rd, and 12th entries, which means
-the filter will only use the x, y, z, and the vyaw values of odom0.
-
-In the imu0_config matrix, you’ll notice that only roll, pitch, and yaw are used. 
 ```
 two_d_mode: false
 publish_tf: true
