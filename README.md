@@ -503,6 +503,11 @@ rqt
 and you will see result of rqt graph as follow. Here, you can see `1 - /diff_cont/odom`, `2 - /imut/out` are fused and generate an output `3 - /odom` output coming
 from `/ekf_filter_node`.
 
+This is `nodes` and `topic` from real robot.
+![2024-11-30_08-53](https://github.com/user-attachments/assets/6de778d5-6d4e-4fae-b082-392cdcaa532e)
+
+This is `nodes` and `topic` from simulation.
+
 ![image](https://github.com/user-attachments/assets/2ee5ab64-5daa-471f-a38f-041da23d98c6)
 
 To enable the fuse, we have modify the following parameters in this file
